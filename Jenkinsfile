@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USERNAME = 'yasinbk'  // Replace with your Docker Hub username
-        DOCKERHUB_PASSWORD = credentials('dockerhub-credentials')  // Correct credential ID for Docker Hub password
+        DOCKERHUB_USERNAME = 'linabenmoussa150'  // Replace with your Docker Hub username
+        DOCKERHUB_PASSWORD = credentials('DockerHubPassword')  // Correct credential ID for Docker Hub password
         VM2_USER = 'vagrant'           // Replace with VM2 SSH user
         VM2_IP = '192.168.226.72'     // Replace with VM2 IP address
         VM2_APP_PATH = '~/app'        // Directory on VM2 to deploy
@@ -45,7 +45,7 @@ pipeline {
 
         stage('Deploy on VM2') {
             steps {
-                sshagent(['vm2-ssh-credentials']) {
+                sshagent(['vagrant_ssh']) {
                     sh '''
                     ssh $VM2_USER@$VM2_IP "mkdir -p $VM2_APP_PATH"
                     scp docker-compose.yml $VM2_USER@$VM2_IP:$VM2_APP_PATH/
